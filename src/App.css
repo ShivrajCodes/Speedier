@@ -31,6 +31,7 @@ body, html {
   justify-content: center;
   color: white;
   padding: 20px;
+  gap: 1rem;
   text-align: center;
   position: relative;
   padding-bottom: 100px;
@@ -139,18 +140,8 @@ body, html {
   animation-delay: 0.4s;
 }
 
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-15px);
-  }
-}
-
 .speed-container {
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-around;
   margin-top: 20px;
   gap: 20px;
@@ -265,4 +256,49 @@ body, html {
 
 .footer-icon:hover {
   color: #F87171;
+}
+
+/* New Styles for Speed Summary Card */
+.speed-card-summary {
+  background-color: transparent;
+  color: white;
+  border-radius: 10px;
+  padding: 20px;
+  width: 80%;
+  max-width: 80%;
+  margin-top: 20px;
+  text-align: left;
+}
+
+.speed-card-summary h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.speed-card-summary p {
+  font-size: 1rem;
+}
+
+.very-slow {
+  background-color: #F87171; /* Red */
+}
+
+.slow {
+  background-color: #FBBF24; /* Yellow */
+}
+
+.fine {
+  background-color: #FDE68A; /* Light Yellow */
+}
+
+.good {
+  background-color: #6EE7B7; /* Green */
+}
+
+.great {
+  background-color: #34D399; /* Dark Green */
+}
+
+.extremely-fast {
+  background-color: #10B981; /* Teal */
 }

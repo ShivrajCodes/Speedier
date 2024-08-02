@@ -8,11 +8,9 @@ const SpeedTest = () => {
   const [isTesting, setIsTesting] = useState(false);
   const [downloadSpeed, setDownloadSpeed] = useState(null);
   const [uploadSpeed, setUploadSpeed] = useState(null);
-  const [ping, setPing] = useState(null);
-  const [latency, setLatency] = useState(null);
-  const [networkProvider, setNetworkProvider] = useState('Unknown');
   const [error, setError] = useState(null);
   const [isSummarizing, setIsSummarizing] = useState(false);
+  const [testStarted, setTestStarted] = useState(false);
 
   useEffect(() => {
     let interval;
@@ -26,12 +24,11 @@ const SpeedTest = () => {
   }, [isTesting]);
 
   const startSpeedTest = async () => {
+    setTestStarted(true);
     setIsTesting(true);
     setError(null);
     setDownloadSpeed(null);
     setUploadSpeed(null);
-    setPing(null);
-    setLatency(null);
     setIsSummarizing(true);
 
     try {
@@ -40,9 +37,6 @@ const SpeedTest = () => {
         const data = await response.json();
         setDownloadSpeed(data.downloadSpeed);
         setUploadSpeed(data.uploadSpeed);
-        setPing(Math.random() * 50); 
-        setLatency(Math.random() * 50); 
-        setNetworkProvider('Your ISP'); 
       } else {
         const errorData = await response.json();
         setError(errorData.error);
@@ -55,6 +49,18 @@ const SpeedTest = () => {
     }
   };
 
+  const getSpeedSummary = (speed) => {
+    if (speed <= 10) return { class: 'very-slow', text: 'Very Slow: The network speed is extremely sluggish, causing long loading times and frequent buffering. Basic tasks such as browsing and emailing are frustratingly slow, hindering productivity and overall user experience.' };
+    if (speed <= 20) return { class: 'slow', text: 'Slow: The network speed is below average, resulting in noticeable delays during online activities. Streaming low-quality videos and simple browsing are possible, but high-bandwidth applications struggle to perform efficiently.' };
+    if (speed <= 40) return { class: 'fine', text: 'Fine: The network speed is adequate for everyday use. Basic web browsing, email, and social media activities run smoothly, but high-definition streaming and large file downloads may experience occasional lags.' };
+    if (speed <= 60) return { class: 'good', text: 'Good: The network speed is reliable and supports most online activities without significant issues. High-definition video streaming, video conferencing, and moderate downloading are efficient, providing a satisfactory user experience.' };
+    if (speed <= 80) return { class: 'great', text: 'Great: The network speed is impressive, ensuring fast and responsive performance for all tasks. Ultra-high-definition streaming, online gaming, and large file transfers occur seamlessly, offering an excellent user experience.' };
+    return { class: 'extremely-fast', text: 'Extremely Fast: The network speed is exceptionally high, providing near-instantaneous responses for any online activity. Multiple high-bandwidth applications run simultaneously without any noticeable lag, ensuring an optimal and superior user experience.' };
+  };
+
+  const downloadSummary = getSpeedSummary(downloadSpeed);
+  const uploadSummary = getSpeedSummary(uploadSpeed);
+
   return (
     <div className="App">
       <div className="logo">
@@ -64,7 +70,7 @@ const SpeedTest = () => {
       <div className="animated-text">
         Test your internet speed within moments
       </div>
-      {!isTesting && !downloadSpeed && !uploadSpeed && !error && (
+      {!testStarted && !downloadSpeed && !uploadSpeed && !error && (
         <button className="button" onClick={startSpeedTest}>
           Check Now
         </button>
@@ -113,20 +119,16 @@ const SpeedTest = () => {
           </div>
         </div>
       )}
-      {(ping !== null || latency !== null || networkProvider) && (
-        <div className="small-cards-container">
-          <div className="small-card">
-            <h3>Ping</h3>
-            <p>{ping ? `${ping.toFixed(2)} ms` : 'Calculating...'}</p>
-          </div>
-          <div className="small-card">
-            <h3>Latency</h3>
-            <p>{latency ? `${latency.toFixed(2)} ms` : 'Calculating...'}</p>
-          </div>
-          <div className="small-card">
-            <h3>Network Provider</h3>
-            <p>{networkProvider}</p>
-          </div>
+      {downloadSpeed !== null && (
+        <div className={`speed-card-summary ${downloadSummary.class}`}>
+          <h2>Download Speed Summary</h2>
+          <p>{downloadSummary.text}</p>
+        </div>
+      )}
+      {uploadSpeed !== null && (
+        <div className={`speed-card-summary ${uploadSummary.class}`}>
+          <h2>Upload Speed Summary</h2>
+          <p>{uploadSummary.text}</p>
         </div>
       )}
       {error && (
@@ -138,7 +140,7 @@ const SpeedTest = () => {
         <div className="footer-left">
           <img src={antennaImage} alt="Logo" className="footer-logo" />
           <div className="footer-text">Speedier</div>
-          <span>© 24 All rights reserved.</span>
+          <span>Copyright© 24 All rights reserved.</span>
         </div>
         <div className="footer-right">
           <span>Created with ♥ by Shivraj</span>

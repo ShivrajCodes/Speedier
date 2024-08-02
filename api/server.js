@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const FastSpeedtest = require('fast-speedtest-api');
+const ping = require('ping');
+const axios = require('axios');
 const app = express();
 const port = 5000;
 
@@ -12,7 +14,7 @@ app.get('/', (req, res) => {
 
 app.get('/api/speedtest', async (req, res) => {
   let speedtest = new FastSpeedtest({
-    token: 'YXNkZmFzZGxmbnNkYWZoYXNkZmhrYWxm',
+    token: 'YXNkZmFzZGxmbnNkYWZoYXNkZmhrYWxm', // Replace with your actual token
     verbose: false,
     timeout: 10000,
     https: true,
@@ -24,7 +26,15 @@ app.get('/api/speedtest', async (req, res) => {
   try {
     const downloadSpeed = await speedtest.getSpeed();
     const uploadSpeed = await simulateUploadSpeed(speedtest);
-    res.status(200).json({ downloadSpeed: downloadSpeed.toFixed(2), uploadSpeed: uploadSpeed.toFixed(2) });
+    const latency = await getPingLatency();
+    const networkProvider = await getNetworkProvider();
+
+    res.status(200).json({
+      downloadSpeed: downloadSpeed.toFixed(2),
+      uploadSpeed: uploadSpeed.toFixed(2),
+      latency: latency.toFixed(2),
+      networkProvider,
+    });
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
@@ -40,6 +50,20 @@ const simulateUploadSpeed = async (speedtest) => {
 
   const averageSpeed = totalSpeed / attempts;
   return averageSpeed;
+};
+
+const getPingLatency = async () => {
+  const pingResult = await ping.promise.probe('google.com');
+  return pingResult.time;
+};
+
+const getNetworkProvider = async () => {
+  try {
+    const response = await axios.get('https://ipinfo.io/json?token=884d0fd3e2a980'); // Replace with your actual token
+    return response.data.org || 'Unknown';
+  } catch (error) {
+    return 'Unknown';
+  }
 };
 
 app.listen(port, () => {
