@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const FastSpeedtest = require('fast-speedtest-api');
-const ping = require('ping');
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -24,13 +23,14 @@ app.get('/api/speedtest', async (req, res) => {
 
   try {
     const downloadSpeed = await speedtest.getSpeed();
+    console.log('Download Speed:', downloadSpeed);
+
     const uploadSpeed = await simulateUploadSpeed(speedtest);
-    const latency = await getPingLatency();
+    console.log('Upload Speed:', uploadSpeed);
 
     res.status(200).json({
       downloadSpeed: downloadSpeed.toFixed(2),
       uploadSpeed: uploadSpeed.toFixed(2),
-      latency: latency.toFixed(2),
     });
   } catch (e) {
     res.status(500).json({ error: e.message });
@@ -47,11 +47,6 @@ const simulateUploadSpeed = async (speedtest) => {
 
   const averageSpeed = totalSpeed / attempts;
   return averageSpeed;
-};
-
-const getPingLatency = async () => {
-  const pingResult = await ping.promise.probe('google.com');
-  return pingResult.time;
 };
 
 app.listen(port, () => {
