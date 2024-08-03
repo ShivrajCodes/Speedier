@@ -32,7 +32,7 @@ const SpeedTest = () => {
     setIsSummarizing(true);
 
     try {
-      const response = await fetch('/api/index');
+      const response = await fetch('/api/speedtest');
       if (response.ok) {
         const data = await response.json();
         setDownloadSpeed(data.downloadSpeed);
