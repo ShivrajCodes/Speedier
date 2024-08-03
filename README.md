@@ -12,13 +12,13 @@ Speedier is an easy-to-use internet speed tester with a minimalistic UI that mea
 ## Screenshots
 
 ![Screenshot 1](assests/my-image-name (1).png)
-*Description of Screenshot 1*
+Home Page
 
 ![Screenshot 2](assests/my-image-name (2).png)
-*Description of Screenshot 2*
+Internet Speed Check
 
 ![Screenshot 3](assests/my-image-name (3).png)
-*Description of Screenshot 3*
+Summary of Speeds
 
 ## Installation
 
