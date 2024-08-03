@@ -1,5 +1,5 @@
 {
-  "name": "speed-test-api",
+  "name": "my-express-app",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "axios": "^0.21.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "fast-speedtest-api": "^0.0.6",
-    "ping": "^0.4.1"
+    "fast-speedtest-api": "^1.0.5",
+    "ping": "^0.4.0"
   }
 }
