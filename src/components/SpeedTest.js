@@ -144,10 +144,18 @@ const SpeedTest = () => {
         </div>
         <div className="footer-right">
           <span>Created with ♥ by Shivraj</span>
-          <FaGithub className="footer-icon" />
-          <FaTwitter className="footer-icon" />
-          <FaInstagram className="footer-icon" />
-          <FaLinkedin className="footer-icon" />
+          <a href="https://github.com/YourGitHubProfile" target="_blank" rel="noopener noreferrer" className="footer-icon">
+            <FaGithub />
+          </a>
+          <a href="https://twitter.com/YourTwitterProfile" target="_blank" rel="noopener noreferrer" className="footer-icon">
+            <FaTwitter />
+          </a>
+          <a href="https://www.instagram.com/YourInstagramProfile" target="_blank" rel="noopener noreferrer" className="footer-icon">
+            <FaInstagram />
+          </a>
+          <a href="https://www.linkedin.com/in/YourLinkedInProfile" target="_blank" rel="noopener noreferrer" className="footer-icon">
+            <FaLinkedin />
+          </a>  
         </div>
       </div>
     </div>
