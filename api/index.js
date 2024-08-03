@@ -16,8 +16,8 @@ app.get('/api/speedtest', async (req, res) => {
     verbose: false,
     timeout: 10000,
     https: true,
-    urlCount: 5,
-    bufferSize: 8,
+    urlCount: 3,
+    bufferSize: 4,
     unit: FastSpeedtest.UNITS.Mbps
   });
 
@@ -42,18 +42,15 @@ const simulateUploadSpeed = async (speedtest) => {
   let totalSpeed = 0;
   const attempts = 1;
 
-  for (let i = 0; i < attempts; i++) {
-    try {
-      const speed = await speedtest.getSpeed();
-      totalSpeed += speed;
-    } catch (e) {
-      console.error('Error during upload speed test:', e.message);
-      throw e; 
-    }
+  try {
+    const speed = await speedtest.getSpeed();
+    totalSpeed += speed;
+  } catch (e) {
+    console.error('Error during upload speed test:', e.message);
+    throw e;
   }
 
-  const averageSpeed = totalSpeed / attempts;
-  return averageSpeed;
+  return totalSpeed;
 };
 
 app.listen(port, () => {
