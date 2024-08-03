@@ -16,8 +16,8 @@ const SpeedTest = () => {
     let interval;
     if (isTesting) {
       interval = setInterval(() => {
-        setDownloadSpeed(prev => (prev < 100 ? prev + Math.random() * 10 : 100));
-        setUploadSpeed(prev => (prev < 100 ? prev + Math.random() * 10 : 100));
+        setDownloadSpeed(prev => (prev === null ? 0 : prev + Math.random() * 10));
+        setUploadSpeed(prev => (prev === null ? 0 : prev + Math.random() * 10));
       }, 100);
     }
     return () => clearInterval(interval);

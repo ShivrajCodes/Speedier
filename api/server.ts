@@ -4,17 +4,17 @@ const FastSpeedtest = require('fast-speedtest-api');
 const ping = require('ping');
 const axios = require('axios');
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 3000;
 
 app.use(cors());
 
 app.get('/', (req, res) => {
-  res.send('Speed Test API');
+  res.send('Express on Vercel');
 });
 
 app.get('/api/speedtest', async (req, res) => {
   let speedtest = new FastSpeedtest({
-    token: 'YXNkZmFzZGxmbnNkYWZoYXNkZmhrYWxm', // Replace with your actual token
+    token: 'YXNkZmFzZGxmbnNkYWZoYXNkZmhrYWxm',
     verbose: false,
     timeout: 10000,
     https: true,
@@ -42,7 +42,7 @@ app.get('/api/speedtest', async (req, res) => {
 
 const simulateUploadSpeed = async (speedtest) => {
   let totalSpeed = 0;
-  const attempts = 2; 
+  const attempts = 2;
 
   for (let i = 0; i < attempts; i++) {
     totalSpeed += await speedtest.getSpeed();
@@ -59,7 +59,7 @@ const getPingLatency = async () => {
 
 const getNetworkProvider = async () => {
   try {
-    const response = await axios.get('https://ipinfo.io/json?token=884d0fd3e2a980'); // Replace with your actual token
+    const response = await axios.get('https://ipinfo.io/json?token=884d0fd3e2a980');
     return response.data.org || 'Unknown';
   } catch (error) {
     return 'Unknown';
@@ -67,5 +67,7 @@ const getNetworkProvider = async () => {
 };
 
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+  console.log(`Server ready on port ${port}`);
 });
+
+module.exports = app;
