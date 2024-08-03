@@ -33,6 +33,7 @@ app.get('/api/speedtest', async (req, res) => {
       uploadSpeed: uploadSpeed.toFixed(2),
     });
   } catch (e) {
+    console.error('Error occurred:', e.message);
     res.status(500).json({ error: e.message });
   }
 });
@@ -42,7 +43,13 @@ const simulateUploadSpeed = async (speedtest) => {
   const attempts = 2;
 
   for (let i = 0; i < attempts; i++) {
-    totalSpeed += await speedtest.getSpeed();
+    try {
+      const speed = await speedtest.getSpeed();
+      totalSpeed += speed;
+    } catch (e) {
+      console.error('Error during upload speed test:', e.message);
+      throw e; // Re-throw the error to be caught by the outer try-catch
+    }
   }
 
   const averageSpeed = totalSpeed / attempts;
