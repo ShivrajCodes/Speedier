@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const FastSpeedtest = require('fast-speedtest-api');
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
 app.use(cors());
 
@@ -40,7 +40,7 @@ app.get('/api/speedtest', async (req, res) => {
 
 const simulateUploadSpeed = async (speedtest) => {
   let totalSpeed = 0;
-  const attempts = 2;
+  const attempts = 1;
 
   for (let i = 0; i < attempts; i++) {
     try {
