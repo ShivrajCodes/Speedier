@@ -16,8 +16,8 @@ app.get('/api/speedtest', async (req, res) => {
     verbose: false,
     timeout: 10000,
     https: true,
-    urlCount: 3,
-    bufferSize: 4,
+    urlCount: 2,
+    bufferSize: 3,
     unit: FastSpeedtest.UNITS.Mbps
   });
 
@@ -25,22 +25,16 @@ app.get('/api/speedtest', async (req, res) => {
 
   try {
     const downloadSpeed = await speedtest.getSpeed();
-    console.log('Download Speed:', downloadSpeed);
-
     const uploadSpeed = await simulateUploadSpeed(speedtest);
-    console.log('Upload Speed:', uploadSpeed);
-
     const end = Date.now();
-    const timeTaken = end - start; // Time in milliseconds
-    console.log(`Total time taken: ${timeTaken} ms`);
+    const timeTaken = end - start;
 
     res.status(200).json({
       downloadSpeed: downloadSpeed.toFixed(2),
       uploadSpeed: uploadSpeed.toFixed(2),
-      timeTaken: `${timeTaken} ms` // Include time in the response
+      timeTaken: `${timeTaken} ms`
     });
   } catch (e) {
-    console.error('Error occurred:', e.message);
     res.status(500).json({ error: e.message });
   }
 });
@@ -50,13 +44,8 @@ const simulateUploadSpeed = async (speedtest) => {
   const attempts = 1;
 
   for (let i = 0; i < attempts; i++) {
-    try {
-      const speed = await speedtest.getSpeed();
-      totalSpeed += speed;
-    } catch (e) {
-      console.error('Error during upload speed test:', e.message);
-      throw e;
-    }
+    const speed = await speedtest.getSpeed();
+    totalSpeed += speed;
   }
 
   const averageSpeed = totalSpeed / attempts;
