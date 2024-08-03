@@ -48,7 +48,7 @@ const simulateUploadSpeed = async (speedtest) => {
       totalSpeed += speed;
     } catch (e) {
       console.error('Error during upload speed test:', e.message);
-      throw e; // Re-throw the error to be caught by the outer try-catch
+      throw e; 
     }
   }
 
