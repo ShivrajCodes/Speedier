@@ -24,7 +24,6 @@ Summary of Speeds
 
 To clone and run this application, you'll need Git and Node.js (which comes with npm) installed on your computer. From your command line:
 
-```bash
 # Clone this repository
 $ git clone https://github.com/ShivrajCodes/speedier.git
 
@@ -36,11 +35,12 @@ $ npm install
 
 # Run the app
 $ npm start
+
 Contributing
 Fork the repository.
-Create your feature branch (git checkout -b feature/your-feature).
-Commit your changes (git commit -m 'Add some feature').
-Push to the branch (git push origin feature/your-feature).
+Create your feature branch: git checkout -b feature/your-feature.
+Commit your changes: git commit -m 'Add some feature'.
+Push to the branch: git push origin feature/your-feature.
 Open a pull request.
 Support
 If you have any questions or issues, please open an issue in this repository.
@@ -50,3 +50,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 Star the Repo
 If you find this project useful, please consider starring the repository. It helps to show your support and keeps us motivated to improve the project!
+
