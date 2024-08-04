@@ -16,8 +16,8 @@ app.get('/api/speedtest', async (req, res) => {
     verbose: false,
     timeout: 10000,
     https: true,
-    urlCount: 2,
-    bufferSize: 3,
+    urlCount: 5,
+    bufferSize: 8,
     unit: FastSpeedtest.UNITS.Mbps
   });
 
