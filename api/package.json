@@ -10,6 +10,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "fast-speedtest-api": "^0.3.2",
-    "ping": "^0.4.0"
+    "ping": "^0.4.0",
+    "react-scripts": "^5.0.1"
   }
 }
