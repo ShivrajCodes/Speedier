@@ -48,12 +48,12 @@ body, html {
 .logo-image {
   width: 40px;
   height: 40px;
-  margin-right: 5px;
+  margin-right: 0px;
 }
 
 .app-name {
   font-family: 'HighSpeed', sans-serif;
-  font-size: 1.2rem;
+  font-size: 0.6rem;
   color: #F87171;
 }
 
