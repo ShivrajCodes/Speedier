@@ -12,12 +12,12 @@ app.get('/', (req, res) => {
 
 app.get('/api/speedtest', async (req, res) => {
   let speedtest = new FastSpeedtest({
-    token: 'YXNkZmFzZGxmbnNkYWZoYXNkZmhrYWxm',
+    token: process.env.SPEEDTEST_API_TOKEN || 'YXNkZmFzZGxmbnNkYWZoYXNkZmhrYWxm',
     verbose: false,
     timeout: 10000,
     https: true,
-    urlCount: 5,
-    bufferSize: 8,
+    urlCount: 3, 
+    bufferSize: 4, 
     unit: FastSpeedtest.UNITS.Mbps
   });
 
@@ -35,6 +35,7 @@ app.get('/api/speedtest', async (req, res) => {
       timeTaken: `${timeTaken} ms`
     });
   } catch (e) {
+    console.error('Speed test error:', e); 
     res.status(500).json({ error: e.message });
   }
 });
