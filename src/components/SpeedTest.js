@@ -31,7 +31,7 @@ const SpeedTest = () => {
     setIsSummarizing(true);
 
     try {
-      const response = await fetch('/api/speedtest');
+      const response = await fetch('https://api-unvh.onrender.com/api/speedtest');
       if (response.ok) {
         const data = await response.json();
         setDownloadSpeed(data.downloadSpeed);
