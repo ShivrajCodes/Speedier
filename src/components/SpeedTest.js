@@ -31,7 +31,7 @@ const SpeedTest = () => {
     setIsSummarizing(true);
 
     try {
-      const response = await fetch('https://api-unvh.onrender.com/api/speedtest');
+      const response = await fetch('/api/speedtest');
       if (response.ok) {
         const data = await response.json();
         setDownloadSpeed(data.downloadSpeed);
@@ -119,21 +119,26 @@ const SpeedTest = () => {
         </div>
       )}
       {downloadSpeed !== null && (
-        <div className={`speed-card-summary ${downloadSummary.class}`}>
+        <div className={`speed-card-summary ${isSummarizing ? 'generating-summary' : downloadSummary.class}`}>
           <h2>Download Speed Summary</h2>
-          <p>{downloadSummary.text}</p>
+          <p>{isSummarizing ? 'Generating Speed Summary...' : downloadSummary.text}</p>
         </div>
       )}
       {uploadSpeed !== null && (
-        <div className={`speed-card-summary ${uploadSummary.class}`}>
+        <div className={`speed-card-summary ${isSummarizing ? 'generating-summary' : uploadSummary.class}`}>
           <h2>Upload Speed Summary</h2>
-          <p>{uploadSummary.text}</p>
+          <p>{isSummarizing ? 'Generating Speed Summary...' : uploadSummary.text}</p>
         </div>
       )}
       {error && (
         <div>
           <p>Error: {error}</p>
         </div>
+      )}
+      {testStarted && !isTesting && (
+        <button className="button recheck-button" onClick={startSpeedTest}>
+          Re-Check
+        </button>
       )}
     </div>
   );
