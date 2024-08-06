@@ -5,6 +5,9 @@
   "scripts": {
     "start": "node index.js"
   },
+  "config":{
+          "distDir":"build"
+        },
   "dependencies": {
     "axios": "^0.21.1",
     "cors": "^2.8.5",

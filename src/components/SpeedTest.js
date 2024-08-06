@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import ReactSpeedometer from 'react-d3-speedometer';
-import { FaGithub, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import '../App.css';
 import antennaImage from '../assests/antenna.png';
 
@@ -32,7 +31,7 @@ const SpeedTest = () => {
     setIsSummarizing(true);
 
     try {
-      const response = await fetch('/api/speedtest');
+      const response = await fetch('https://api-unvh.onrender.com/api/speedtest');
       if (response.ok) {
         const data = await response.json();
         setDownloadSpeed(data.downloadSpeed);
@@ -136,28 +135,6 @@ const SpeedTest = () => {
           <p>Error: {error}</p>
         </div>
       )}
-      <div className="footer">
-        <div className="footer-left">
-          <img src={antennaImage} alt="Logo" className="footer-logo" />
-          <div className="footer-text">Speedier</div>
-          <span>Copyright© 24 All rights reserved.</span>
-        </div>
-        <div className="footer-right">
-          <span>Created with ♥ by Shivraj</span>
-          <a href="https://github.com/YourGitHubProfile" target="_blank" rel="noopener noreferrer" className="footer-icon">
-            <FaGithub />
-          </a>
-          <a href="https://twitter.com/YourTwitterProfile" target="_blank" rel="noopener noreferrer" className="footer-icon">
-            <FaTwitter />
-          </a>
-          <a href="https://www.instagram.com/YourInstagramProfile" target="_blank" rel="noopener noreferrer" className="footer-icon">
-            <FaInstagram />
-          </a>
-          <a href="https://www.linkedin.com/in/YourLinkedInProfile" target="_blank" rel="noopener noreferrer" className="footer-icon">
-            <FaLinkedin />
-          </a>  
-        </div>
-      </div>
     </div>
   );
 };
